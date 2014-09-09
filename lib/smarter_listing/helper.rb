@@ -1,10 +1,10 @@
 module SmarterListing
   module Helper
 
-    def self.included base
-      base.helper_method :collection_sym, :collection_action, :collection_ivar, :resource_sym, :resource_ivar, :model
-      base.helper_method :action_copy, :action_edit, :action_destroy, :current_engine
-    end
+    # def self.included base
+    #   base.helper_method :collection_sym, :collection_action, :collection_ivar, :resource_sym, :resource_ivar, :model
+    #   base.helper_method :action_copy, :action_edit, :action_destroy, :current_engine
+    # end
 
     def collection_sym
       @collection_sym = nil
@@ -29,7 +29,7 @@ module SmarterListing
     end
 
     def current_engine
-      self.class.parent.to_s.downcase
+      self.class.parent == Object ? '' : self.class.parent.to_s.downcase
     end
 
     def model
@@ -68,6 +68,7 @@ module SmarterListing
           raise unless e.message.include?(class_name)
           nil
         end
+        resource_class
       end
     end
 

@@ -3,7 +3,7 @@ require File.expand_path('../boot', __FILE__)
 require 'rails/all'
 
 Bundler.require(*Rails.groups)
-require "smarter_listing"
+require 'smarter_listing'
 
 module Dummy
   class Application < Rails::Application

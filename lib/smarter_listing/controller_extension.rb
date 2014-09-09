@@ -2,6 +2,52 @@ module SmarterListing::ControllerExtension
 
   def self.included base
     base.helper_method :collection, :resource
+    base.include SmarterListing::Helper
+    base.class_eval do
+      # Actions
+      define_method :index do
+        collection
+        respond_to do |format|
+          format.html
+          format.js { render action: 'index.js.erb' }
+        end
+      end
+
+      define_method :new do
+        instance_variable_get(resource_ivar) || instance_variable_set(resource_ivar, model.new(resource_params))
+        render 'smarter_listing/new'
+      end
+
+      define_method :create do
+        instance_variable_get(resource_ivar) || instance_variable_set(resource_ivar, model.create(resource_params))
+        render 'smarter_listing/create'
+      end
+
+      define_method :copy do
+        instance_variable_set resource_ivar, resource.dup
+        render 'smarter_listing/copy'
+      end
+
+      define_method :show do
+        resource
+        render resource, object: resource
+      end
+
+      define_method :edit do
+        resource
+        render 'smarter_listing/edit'
+      end
+
+      define_method :update do
+        resource.update resource_params
+        render 'smarter_listing/update'
+      end
+
+      define_method :destroy do
+        resource.destroy
+        render 'smarter_listing/destroy'
+      end
+    end
   end
 
   def filter_parameter
@@ -13,7 +59,7 @@ module SmarterListing::ControllerExtension
   end
 
   def load_collection
-    instance_variable_set collection_ivar, smart_listing_create(collection_sym, filtered(model), partial: "#{current_engine}/#{collection_sym}/listing")
+    instance_variable_set collection_ivar, smart_listing_create(collection_sym, filtered(model), partial: "#{current_engine}/#{collection_sym}/table_header")
   end
 
   def load_resource
@@ -26,50 +72,6 @@ module SmarterListing::ControllerExtension
 
   def collection
     instance_variable_get(collection_ivar) || load_collection
-  end
-
-  # Actions
-  def index
-    collection
-    respond_to do |format|
-      format.html
-      format.js { render action: 'index.js.erb'}
-    end
-  end
-
-  def new
-    instance_variable_get(resource_ivar) || instance_variable_set(resource_ivar, model.new(resource_params))
-    render "smarter_listing/new"
-  end
-
-  def create
-    instance_variable_get(resource_ivar) || instance_variable_set(resource_ivar, model.create(resource_params))
-    render "smarter_listing/create"
-  end
-
-  def copy
-    instance_variable_set resource_ivar, resource.dup
-    render "smarter_listing/copy"
-  end
-
-  def show
-    resource
-    render resource, object: resource
-  end
-
-  def edit
-    resource
-    render "smarter_listing/edit"
-  end
-
-  def update
-    resource.update resource_params
-    render "smarter_listing/update"
-  end
-
-  def destroy
-    resource.destroy
-    render "smarter_listing/destroy"
   end
 
 end
