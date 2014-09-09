@@ -1,0 +1,14 @@
+<table class="table table-striped">
+  <tr>
+    <th><%= smart_listing.sortable 'Name', :name %></th>
+    <th><%= smart_listing.sortable 'Content', :content %></th>
+  <% smart_listing.collection.each do |lang| %>
+    <tr class="editable" data-id="<%= lang.id %>">
+      <%= smart_listing.render partial: 'listing', locals: {object: lang} %>
+    </tr>
+  <% end %>
+
+  <%= smart_listing.item_new colspan: 7, link: new_listing_path %>
+</table>
+<%= smart_listing.paginate %>
+<%= smart_listing.pagination_per_page_links %>

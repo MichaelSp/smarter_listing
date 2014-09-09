@@ -1,0 +1,8 @@
+<%= smart_listing_controls_for(:listings, {class: "form-inline text-right"}) do %>
+  <%= text_field_tag :filter, '', class: "search form-control", placeholder: t("Search..."), autocomplete: :off %>
+
+  <button class="btn btn-primary disabled" type="submit">
+    Search
+  </button>
+<% end %>
+<%= smart_listing_render(:listings) %>

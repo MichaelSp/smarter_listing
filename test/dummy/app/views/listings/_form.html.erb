@@ -1,0 +1,8 @@
+<td colspan="6">
+  <%= form_for object, url: object.new_record? ? listings_path : listing_path(object), remote: true, html: {class: "form-horizontal"} do |f| %>
+    <%= f.text_field :name %>
+    <%= f.text_field :content %>
+    <%= f.submit "Save", class: "btn btn-primary" %>
+    <button class="btn btn-link cancel">Cancel</button>
+  <% end %>
+</td>

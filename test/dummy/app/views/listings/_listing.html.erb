@@ -1,0 +1,5 @@
+<td><%= object.name %></td>
+<td><%= object.content%></td>
+<td class="actions">
+  <%= smart_listing_item_actions [action_copy(object,copy_listing_path(object)),action_edit(object,edit_listing_path(object)),action_destroy(object,listing_path(object))] %>
+</td>
