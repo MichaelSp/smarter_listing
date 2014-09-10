@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/MichaelSp/smarter_listing.svg?branch=master)](https://travis-ci.org/MichaelSp/smarter_listing)
+[![Gem Version](https://badge.fury.io/rb/smarter_listing.svg)](http://badge.fury.io/rb/smarter_listing)
 
 SmarterListing
 ================
