@@ -11,15 +11,15 @@ Gem::Specification.new do |s|
   s.email       = ['ms@inline.de']
   s.homepage    = 'http://github.com/MichaelSp/smarter_listing'
   s.summary     = 'Smart Listing even smarter (and DRYer)'
-  s.description = 'Smart Listing even smarter (and DRYer)'
+  s.description = 'DRY improvements to the fine gem "smart_listing". See http://showcase.sology.eu/smart_listing for more details'
   s.license     = 'MIT'
 
   s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
   s.test_files = Dir['test/**/*']
 
   s.add_dependency 'rails', '~> 4'
-  s.add_dependency 'smart_listing'
+  s.add_dependency 'smart_listing', '~> 1'
 
-  s.add_development_dependency 'sqlite3'
-  s.add_development_dependency 'spring'
+  s.add_development_dependency 'sqlite3', '~> 3'
+  #s.add_development_dependency 'spring'
 end
