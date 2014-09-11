@@ -20,6 +20,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails', '~> 4'
   s.add_dependency 'smart_listing', '~> 1'
 
-  s.add_development_dependency 'sqlite3', '~> 3'
+  s.add_development_dependency 'sqlite3', '~> 1'
   #s.add_development_dependency 'spring'
 end

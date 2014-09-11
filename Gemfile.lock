@@ -1,9 +1,9 @@
 PATH
   remote: .
   specs:
-    smarter_listing (0.0.1)
+    smarter_listing (0.1.1)
       rails (~> 4)
-      smart_listing
+      smart_listing (~> 1)
 
 GEM
   remote: https://rubygems.org/
@@ -81,7 +81,7 @@ GEM
       coffee-rails
       kaminari (>= 0.15.1)
       rails (>= 3.2)
-    sprockets (2.12.1)
+    sprockets (2.12.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
@@ -105,4 +105,4 @@ PLATFORMS
 
 DEPENDENCIES
   smarter_listing!
-  sqlite3
+  sqlite3 (~> 1)
