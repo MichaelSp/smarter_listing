@@ -8,7 +8,7 @@ module SmarterListing::ControllerExtension
       define_method :index do
         collection
         respond_to do |format|
-          format.html
+          format.html { render layout: self.class._layout }
           format.js { render action: 'index.js.erb' }
         end
       end

@@ -8,6 +8,11 @@ class ListingsControllerTest < ActionController::TestCase
     ListingsController.smarter_listing
   end
 
+  test 'correct layout' do
+    get :index
+    assert_template 'default'
+  end
+
   test 'should have the methods from all helpers' do
     assert_includes @controller.methods, :create
     assert_includes @controller.methods, :show
