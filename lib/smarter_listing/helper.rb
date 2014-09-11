@@ -29,7 +29,7 @@ module SmarterListing
     end
 
     def current_engine
-      self.class.parent == Object ? '' : self.class.parent.to_s.downcase
+      self.class.parent == Object ? '' : self.class.parent.to_s.underscore
     end
 
     def model
