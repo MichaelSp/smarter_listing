@@ -1,7 +1,8 @@
-<table class="table table-striped">
+<table class="table table-striped" id="the_table">
   <tr>
     <th><%= smart_listing.sortable 'Name', :name %></th>
     <th><%= smart_listing.sortable 'Content', :content %></th>
+  </tr>
   <% smart_listing.collection.each do |lang| %>
     <tr class="editable" data-id="<%= lang.id %>">
       <%= smart_listing.render partial: 'listing', locals: {object: lang} %>

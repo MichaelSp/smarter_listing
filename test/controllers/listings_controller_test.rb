@@ -11,6 +11,7 @@ class ListingsControllerTest < ActionController::TestCase
   test 'correct layout' do
     get :index
     assert_template 'default'
+    assert_select '#layout', 'TAG'
   end
 
   test 'should have the methods from all helpers' do
@@ -24,12 +25,19 @@ class ListingsControllerTest < ActionController::TestCase
   test "should get index" do
     get :index
     assert_response :success
-    assert_not_nil assigns(:listings)
+    assert_equal [@listing], assigns(:listings)
+    assert_select '#this_is_the_index', 'TAG'
+    assert_select 'table#the_table'
+    assert_select 'td', @listing.name
+    assert_select 'td', @listing.content
+    assert_select 'td.actions', 1
   end
 
   test "should get new" do
     xhr :get, :new, format: :js
     assert_response :success
+    assert_equal 'text/javascript', @response.content_type
+    assert_includes response.body, 'id=\\"the_form\\"'
   end
 
   test "should create listing" do
@@ -41,22 +49,27 @@ class ListingsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     xhr :get, :edit, id: @listing, format: :js
     assert_response :success
+    assert_equal 'text/javascript', @response.content_type
+    assert_includes response.body, 'id=\\"the_form\\"'
   end
 
-  test "should update listing" do
+  test 'should update listing' do
     resource_params = {content: @listing.content, deleted_at: @listing.deleted_at, name: 'newName'}
     xhr :patch, :update, id: @listing, listing: resource_params, format: :js
     assert_empty @listing.errors
     assert_response :success
+    assert_includes response.body, '<td>newName<\\/td>'
+    assert_includes response.body, @listing.content
   end
 
-  test "should destroy listing" do
+  test 'should destroy listing' do
     assert_difference('Listing.count', -1) do
       xhr :delete, :destroy, id: @listing, format: :js
     end
     assert_response :success
+    assert_select 'tr', 0
   end
 end

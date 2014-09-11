@@ -1,4 +1,4 @@
-<td colspan="6">
+<td colspan="6" id="the_form">
   <%= form_for object, url: object.new_record? ? listings_path : listing_path(object), remote: true, html: {class: "form-horizontal"} do |f| %>
     <%= f.text_field :name %>
     <%= f.text_field :content %>
