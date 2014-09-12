@@ -29,15 +29,17 @@ module SmarterListing
     end
 
     def current_engine
-      self.class.parent == Object ? '' : self.class.parent.to_s.underscore
+      object = instance_variables.include?(:@_controller) ? @_controller : self
+      object.class.parent == Object ? '' : object.class.parent.to_s.underscore
     end
 
     def model
+      object = instance_variables.include?(:@_controller) ? @_controller : self
       @model = nil
       @model ||= begin
                    # First priority is the namespaced model, e.g. User::Group
         resource_class ||= begin
-          namespaced_class = self.name.sub(/Controller/, '').singularize
+          namespaced_class = object.name.sub(/Controller/, '').singularize
           namespaced_class.constantize
         rescue NameError
           nil
@@ -45,7 +47,7 @@ module SmarterListing
 
         # Second priority is the top namespace model, e.g. EngineName::Article for EngineName::Admin::ArticlesController
         resource_class ||= begin
-          namespaced_classes = self.name.sub(/Controller/, '').split('::')
+          namespaced_classes = object.name.sub(/Controller/, '').split('::')
           namespaced_class = [namespaced_classes.first, namespaced_classes.last].join('::').singularize
           namespaced_class.constantize
         rescue NameError
@@ -54,7 +56,7 @@ module SmarterListing
 
         # Third priority the camelcased c, i.e. UserGroup
         resource_class ||= begin
-          camelcased_class = self.name.sub(/Controller/, '').gsub('::', '').singularize
+          camelcased_class = object.name.sub(/Controller/, '').gsub('::', '').singularize
           camelcased_class.constantize
         rescue NameError
           nil
@@ -62,7 +64,7 @@ module SmarterListing
 
         # Otherwise use the Group class, or fail
         resource_class ||= begin
-          class_name = self.controller_name.classify
+          class_name = object.controller_name.classify
           class_name.constantize
         rescue NameError => e
           raise unless e.message.include?(class_name)
