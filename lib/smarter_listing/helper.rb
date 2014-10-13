@@ -17,6 +17,10 @@ module SmarterListing
       "@#{resource_sym}"
     end
 
+    def _resource_params
+      send "#{resource_sym}_params".to_sym
+    end
+
     def table_name
       model.name.demodulize.tableize.to_sym
     end

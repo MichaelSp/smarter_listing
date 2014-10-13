@@ -14,12 +14,12 @@ module SmarterListing::ControllerExtension
   end
 
   def new
-    instance_variable_get(resource_ivar) || instance_variable_set(resource_ivar, model.new(resource_params))
+    instance_variable_get(resource_ivar) || instance_variable_set(resource_ivar, model.new(_resource_params))
     render 'smarter_listing/new'
   end
 
   def create
-    instance_variable_get(resource_ivar) || instance_variable_set(resource_ivar, model.create(resource_params))
+    instance_variable_get(resource_ivar) || instance_variable_set(resource_ivar, model.create(_resource_params))
     render 'smarter_listing/create'
   end
 
@@ -39,7 +39,7 @@ module SmarterListing::ControllerExtension
   end
 
   def update
-    resource.update resource_params
+    resource.update _resource_params
     render 'smarter_listing/update'
   end
 
@@ -61,7 +61,7 @@ module SmarterListing::ControllerExtension
   end
 
   def load_resource
-    instance_variable_set resource_ivar, (model.find(params[:id]) rescue (action_name == 'new' ? model.new(resource_params) : nil))
+    instance_variable_set resource_ivar, (model.find(params[:id]) rescue (action_name == 'new' ? model.new(_resource_params) : nil))
   end
 
   def resource
