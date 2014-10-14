@@ -13,12 +13,20 @@ module SmarterListing
       @resource_sym ||= model.to_s.underscore.sub('/','_').to_sym
     end
 
+    def resource_view_path
+      path = model.name.tableize
+      path = "#{current_engine}/#{path}" unless path.start_with?(current_engine)
+      path
+    end
+
     def resource_ivar
       "@#{resource_sym}"
     end
 
     def _resource_params
-      send "#{resource_sym}_params".to_sym
+      method = "#{resource_sym}_params".to_sym
+      return send method if respond_to? method
+      resource_params
     end
 
     def table_name

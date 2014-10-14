@@ -1,1 +1,1 @@
-<%= smart_listing_item collection_sym, :update, resource, resource.valid? ? "#{current_engine}/#{collection_sym}/#{collection_action}" : "#{current_engine}/#{collection_sym}/form.html" %>
+<%= smart_listing_item collection_sym, :update, resource, resource.valid? ? "#{resource_view_path}/#{model.name.demodulize.underscore}" : "#{resource_view_path}/form.html" %>
