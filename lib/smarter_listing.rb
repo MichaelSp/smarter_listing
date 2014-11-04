@@ -9,7 +9,7 @@ module SmarterListing
   module Loader
     def self.extended base
       def smarter_listing(filter_parameter = :filter)
-        helper SmartListing::Helper
+        helper SmartListing::Helper unless _helper_methods.include?(:smart_listing_item)
         include SmartListing::Helper::ControllerExtensions
 
         helper SmarterListing::Helper
