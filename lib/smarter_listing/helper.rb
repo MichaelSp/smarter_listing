@@ -15,7 +15,7 @@ module SmarterListing
 
     def resource_view_path
       path = model.name.tableize
-      path = "#{current_engine}/#{path}"
+      path = "#{current_engine}/#{path}" unless path.start_with?("#{current_engine}/")
       path
     end
 
