@@ -1,5 +1,4 @@
 require 'smarter_listing/engine'
-require 'smart_listing'
 require 'kaminari'
 
 module SmarterListing

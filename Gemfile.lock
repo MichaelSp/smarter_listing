@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    smarter_listing (0.2.0)
+    smarter_listing (0.2.1)
       rails (~> 4)
       smart_listing (~> 1)
 
