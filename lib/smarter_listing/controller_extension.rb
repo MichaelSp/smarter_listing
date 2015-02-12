@@ -38,6 +38,11 @@ module SmarterListing::ControllerExtension
     render 'smarter_listing/edit'
   end
 
+  def multi_edit
+    @multi = true
+    edit
+  end
+
   def update
     resource.update _resource_params
     render 'smarter_listing/update'
@@ -53,7 +58,16 @@ module SmarterListing::ControllerExtension
   end
 
   def filtered(model)
-    (!params[filter_parameter].blank?) ? model.search { fulltext "#{params[filter_parameter]}" }.results : model.all
+    results = model.all
+    unless params[filter_parameter].blank?
+      if model.respond_to?(:search)
+        results = results.search { fulltext "#{params[filter_parameter]}" }.results
+      elsif model.respond_to?(:name)
+        results = results.where("name LIKE ?", "%#{params[filter_parameter]}%")
+      end
+    end
+    results = results.where.not(deleted_at: nil) if params[:show_deleted]
+    results
   end
 
   def load_collection
