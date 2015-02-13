@@ -66,7 +66,13 @@ module SmarterListing::ControllerExtension
         results = results.where("name LIKE ?", "%#{params[filter_parameter]}%")
       end
     end
-    results = results.where.not(deleted_at: nil) if params[:show_deleted]
+    if params[:show_deleted] == "1" && model.instance_methods.include?(:deleted?)
+      if model.column_names.include?("deleted_at")
+        results = results.where.not(deleted_at: nil)
+      else
+        results = results.where.not(status: model.statuses[:deleted])
+      end
+    end
     results
   end
 
