@@ -1,0 +1,7 @@
+(function () {
+  var event = document.createEvent('Events');
+  event.initEvent('form:load', true, true);
+  event.model = '<%= collection_sym %>';
+  event.engine = '<%= current_engine %>';
+  document.dispatchEvent(event);
+})();
