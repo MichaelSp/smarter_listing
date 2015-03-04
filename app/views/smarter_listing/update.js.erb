@@ -1,1 +1,2 @@
 <%= smart_listing_item collection_sym, :update, resource, resource.valid? ? "#{resource_view_path}/#{model.name.demodulize.underscore}" : "#{resource_view_path}/form.html" %>
+<%== render 'smarter_listing/form_logic' unless resource.valid? %>

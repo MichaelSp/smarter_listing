@@ -1,1 +1,2 @@
 <%= smart_listing_item collection_sym, :create, resource, resource.valid? ? "#{resource_view_path}/#{table_name.to_s.singularize}" : "#{resource_view_path}/form.html" %>
+<%== render 'smarter_listing/form_logic' unless resource.valid? %>

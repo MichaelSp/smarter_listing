@@ -53,24 +53,30 @@ module SmarterListing::ControllerExtension
     render 'smarter_listing/destroy'
   end
 
+  def restore
+    resource.current_user = current_user if resource.respond_to?(:current_user=)
+    resource.restore!
+    index
+  end
+
   def filter_parameter
     self.class.instance_variable_get :@filter_parameter
   end
 
   def filtered(model)
-    results = model.all
+    results = if params[:show_deleted] == "1" && model.instance_methods.include?(:deleted?)
+                if model.column_names.include?("deleted_at")
+                  model.only_deleted
+                else
+                  results.map(&:deleted?)
+                end
+              end
+    results ||= model.all
     unless params[filter_parameter].blank?
       if model.respond_to?(:search)
         results = results.search { fulltext "#{params[filter_parameter]}" }.results
       elsif model.respond_to?(:name)
         results = results.where("name LIKE ?", "%#{params[filter_parameter]}%")
-      end
-    end
-    if params[:show_deleted] == "1" && model.instance_methods.include?(:deleted?)
-      if model.column_names.include?("deleted_at")
-        results = results.where.not(deleted_at: nil)
-      else
-        results = results.where.not(status: model.statuses[:deleted])
       end
     end
     results
