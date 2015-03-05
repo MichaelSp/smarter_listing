@@ -34,7 +34,10 @@ module SmarterListing::ControllerExtension
   end
 
   def edit
-    resource
+    respond_to do |format|
+      format.html { load_collection; resource }
+      format.js { resource }
+    end
     render 'smarter_listing/edit'
   end
 

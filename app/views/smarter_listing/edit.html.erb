@@ -1,0 +1,5 @@
+<%= smart_listing_render(model.name.tableize) %>
+<script type="text/javascript">
+  var smart_listing = $('#<%= collection_sym  %>').smart_listing();
+  smart_listing.edit(<%= resource.id %>, "<%= escape_javascript(render(partial: "#{resource_view_path}/form.html", locals: {object: resource})) %>");
+</script>
