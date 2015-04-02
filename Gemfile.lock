@@ -151,7 +151,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  minitest-rails
-  minitest-rails-capybara
+  minitest-rails (~> 2)
+  minitest-rails-capybara (~> 2)
   smarter_listing!
   sqlite3 (~> 1)
