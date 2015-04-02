@@ -1,9 +1,5 @@
 class ListingsController < ApplicationController
-
-  def edit
-    resource
-    super
-  end
+  smarter_listing
 
   private
     def resource_params

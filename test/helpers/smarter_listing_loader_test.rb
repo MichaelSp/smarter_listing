@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SmarterListingLoaderTest < ActiveSupport::TestCase
+class SmarterListingLoader < ActiveSupport::TestCase
 
   setup do
     ListingsController.smarter_listing

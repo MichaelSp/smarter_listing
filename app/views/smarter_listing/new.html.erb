@@ -1,0 +1,6 @@
+<%= smart_listing_render(collection_sym) %>
+<script type="text/javascript">
+    var smart_listing = $('#<%= collection_sym %>').smart_listing();
+    smart_listing.new_item("<%= escape_javascript(render(partial: "#{resource_view_path}/form.html", locals: {object: resource})) %>");
+    <%== render partial: 'smarter_listing/form_logic.js' %>
+</script>

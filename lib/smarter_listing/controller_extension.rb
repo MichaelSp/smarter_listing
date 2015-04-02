@@ -14,7 +14,10 @@ module SmarterListing::ControllerExtension
   end
 
   def new
-    instance_variable_get(resource_ivar) || instance_variable_set(resource_ivar, model.new(_resource_params))
+    respond_to do |format|
+      format.html { load_collection; resource }
+      format.js { resource }
+    end
     render 'smarter_listing/new'
   end
 

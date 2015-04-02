@@ -4,6 +4,7 @@ require 'rails/all'
 
 Bundler.require(*Rails.groups)
 require 'smarter_listing'
+require 'smart_listing'
 
 module Dummy
   class Application < Rails::Application
