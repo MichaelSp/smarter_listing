@@ -93,7 +93,10 @@ module SmarterListing::ControllerExtension
   end
 
   def load_resource
-    instance_variable_set resource_ivar, (model.find(params[:id]) rescue (action_name == 'new' ? model.new(_resource_params) : nil))
+    res = model.find_by_id params[:id]
+    res ||= model.new(_resource_params) if action_name == 'new'
+    res ||= model.unscoped.find_by_id params[:id] if action_name == 'restore'
+    instance_variable_set resource_ivar, res
   end
 
   def resource
