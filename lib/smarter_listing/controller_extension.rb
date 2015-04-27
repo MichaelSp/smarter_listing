@@ -89,7 +89,7 @@ module SmarterListing::ControllerExtension
   end
 
   def load_collection
-    instance_variable_set collection_ivar, smart_listing_create(collection_sym, filtered(model), partial: "#{current_engine}/#{table_name}/table_header")
+    instance_variable_set collection_ivar, smart_listing_create(model.name.tableize.sub('/','_'), filtered(model), partial: "#{current_engine}/#{table_name}/table_header")
   end
 
   def load_resource
