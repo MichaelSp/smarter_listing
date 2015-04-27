@@ -15,6 +15,6 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 ActiveSupport::TestCase.fixture_path = File.expand_path('../fixtures', __FILE__)
 
 class ActionController::TestCase
-  ActiveRecord::Migration.check_pending!
+  ActiveRecord::Migration.maintain_test_schema!
   fixtures :all
 end
