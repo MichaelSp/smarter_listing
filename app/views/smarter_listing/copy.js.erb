@@ -1,2 +1,2 @@
-<%= smart_listing_item collection_sym, :copy, resource, "#{current_engine}/#{collection_sym}/form.html" %>
+<%= smart_listing_item :copy, resource, "#{current_engine}/#{collection_sym}/form.html", name: collection_sym %>
 <%== render 'smarter_listing/form_logic' %>
