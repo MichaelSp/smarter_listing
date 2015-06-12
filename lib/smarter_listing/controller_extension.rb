@@ -32,8 +32,7 @@ module SmarterListing::ControllerExtension
   end
 
   def show
-    resource
-    render resource, object: resource
+    edit
   end
 
   def edit
