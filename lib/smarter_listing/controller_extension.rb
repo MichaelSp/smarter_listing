@@ -27,7 +27,7 @@ module SmarterListing::ControllerExtension
   end
 
   def copy
-    instance_variable_set resource_ivar, resource.dup
+    instance_variable_set resource_ivar, resource.respond_to?(:deep_clone) ? resource.dup : resource.dup
     render 'smarter_listing/copy'
   end
 
