@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    smarter_listing (0.3.7)
+    smarter_listing (0.4.0)
       rails (~> 4)
       smart_listing (~> 1)
 
@@ -127,7 +127,7 @@ GEM
       jquery-rails
       kaminari (~> 0.16.1)
       rails (>= 3.2)
-    sprockets (3.1.0)
+    sprockets (3.2.0)
       rack (~> 1.0)
     sprockets-rails (2.3.1)
       actionpack (>= 3.0)
