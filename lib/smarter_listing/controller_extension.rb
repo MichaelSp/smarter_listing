@@ -80,7 +80,11 @@ module SmarterListing::ControllerExtension
     unless params[filter_parameter].blank?
       if model.respond_to?(:search)
         results = results.search { fulltext "#{params[filter_parameter]}" }.results
-      elsif model.respond_to?(:name)
+      elsif model.respond_to?(:search_columns)
+        columns = model.search_columns.select{|column| model.column_names.include?(column.to_s)}
+        filter = "%#{params[filter_parameter]}%"
+        results = results.where columns.map{|column| "#{column} LIKE ?"}.join(" OR "), [filter] * columns.count
+      elsif model.column_names.include?('name')
         results = results.where("name LIKE ?", "%#{params[filter_parameter]}%")
       end
     end
