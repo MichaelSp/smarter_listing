@@ -60,7 +60,7 @@ describe ListingsController do
     test 'get js' do
       get edit_listing_path(listing, format: :js), xhr: true
       assert_response :success
-      assert_equal 'text/javascript', response.content_type
+      assert_equal 'text/javascript', response.media_type
       assert_includes response.body, 'the_form'
     end
 
@@ -68,7 +68,7 @@ describe ListingsController do
     test 'get html' do
       get edit_listing_path(listing)
       assert_response :success
-      assert_equal 'text/html', response.content_type
+      assert_equal 'text/html', response.media_type
       assert_select "tr.editable[data-id=\"#{listing.id}\"]"
     end
   end
@@ -77,7 +77,7 @@ describe ListingsController do
     test 'get js' do
       get new_listing_path(format: :js), xhr: true
       assert_response :success
-      assert_equal 'text/javascript', response.content_type
+      assert_equal 'text/javascript', response.media_type
       assert_includes response.body, 'smart_listing.new_item'
       assert_includes response.body, 'the_form'
     end
@@ -85,7 +85,7 @@ describe ListingsController do
     test 'get html' do
       get new_listing_path
       assert_response :success
-      assert_equal 'text/html', response.content_type
+      assert_equal 'text/html', response.media_type
       assert_includes response.body, 'the_form'
       assert_includes response.body, '$(\'#listings\').smart_listing();'
       assert_includes response.body, "smart_listing.new_item("

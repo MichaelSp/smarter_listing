@@ -35,7 +35,7 @@ module SmarterListing
 
     def current_engine
       object = instance_variables.include?(:@_controller) ? @_controller : self
-      object.class.parent == Object ? '' : object.class.parent.to_s.underscore
+      object.class.module_parent == Object ? '' : object.class.module_parent.to_s.underscore
     end
 
     def model
