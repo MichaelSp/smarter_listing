@@ -192,10 +192,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  capybara
+  capybara (~> 3)
   minitest-rails (~> 6)
-  rails-controller-testing
-  selenium-webdriver
+  rails-controller-testing (~> 1)
+  selenium-webdriver (~> 3)
   smarter_listing!
   sqlite3 (~> 1)
 

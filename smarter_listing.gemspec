@@ -23,8 +23,8 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'sqlite3', '~> 1'
   s.add_development_dependency 'minitest-rails', "~> 6"
-  s.add_development_dependency 'rails-controller-testing'
-  s.add_development_dependency 'capybara'
-  s.add_development_dependency 'selenium-webdriver'
+  s.add_development_dependency 'rails-controller-testing', "~> 1"
+  s.add_development_dependency 'capybara', "~> 3"
+  s.add_development_dependency 'selenium-webdriver', "~> 3"
   #s.add_development_dependency 'spring'
 end
