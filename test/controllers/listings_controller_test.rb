@@ -6,25 +6,21 @@ describe ListingsController do
   before do
     subject.class.smarter_listing
   end
-  subject{ListingsController.new}
-  let(:listing){listings(:one)}
+  subject { ListingsController.new }
+  let(:listing) { listings(:one) }
 
   test 'correct layout' do
-    get :index
+    get listings_url
     assert_template 'default'
     assert_select '#layout', 'TAG'
   end
 
   test 'should have the methods from all helpers' do
-    assert_includes @controller.methods, :create
-    assert_includes @controller.methods, :show
-    assert_includes @controller.methods, :update
-    assert_includes @controller.methods, :destroy
-    assert_includes @controller.methods, :new
+    assert_includes ListingsController.included_modules, SmarterListing::ControllerExtension
   end
 
   test "should get index" do
-    get :index
+    get listings_url
     assert_response :success
     assert_equal [listing], assigns(:listings)
     assert_select '#this_is_the_index', 'TAG'
@@ -37,7 +33,7 @@ describe ListingsController do
   test "should create listing" do
     assert_difference('Listing.count') do
       resource_params = {content: listing.content, deleted_at: listing.deleted_at, name: 'newName'}
-      xhr :post, :create, listing: resource_params, format: :js
+      post listings_path(format: :js), params: {listing: resource_params}, xhr: true
       assert_empty listing.errors
     end
     assert_response :success
@@ -45,7 +41,7 @@ describe ListingsController do
 
   test 'should update listing' do
     resource_params = {content: listing.content, deleted_at: listing.deleted_at, name: 'newName'}
-    xhr :patch, :update, id: listing, listing: resource_params, format: :js
+    patch listing_path(listing, format: :js), params: {listing: resource_params}, xhr: true
     assert_empty listing.errors
     assert_response :success
     assert_select 'td', "newName\\n"
@@ -54,7 +50,7 @@ describe ListingsController do
 
   test 'should destroy listing' do
     assert_difference('Listing.count', -1) do
-      xhr :delete, :destroy, id: listing, format: :js
+      delete listing_path(listing, format: :js), xhr: true
     end
     assert_response :success
     assert_select 'tr', 0
@@ -62,7 +58,7 @@ describe ListingsController do
 
   describe 'edit' do
     test 'get js' do
-      xhr :get, :edit, id: listing.id, format: :js
+      get edit_listing_path(listing, format: :js), xhr: true
       assert_response :success
       assert_equal 'text/javascript', response.content_type
       assert_includes response.body, 'the_form'
@@ -70,16 +66,16 @@ describe ListingsController do
 
 
     test 'get html' do
-      get :edit, id: listing.id, format: :html
+      get edit_listing_path(listing)
       assert_response :success
       assert_equal 'text/html', response.content_type
       assert_select "tr.editable[data-id=\"#{listing.id}\"]"
     end
   end
 
-  describe :new, :capybara do
+  describe :new do
     test 'get js' do
-      xhr :get, :new, format: :js
+      get new_listing_path(format: :js), xhr: true
       assert_response :success
       assert_equal 'text/javascript', response.content_type
       assert_includes response.body, 'smart_listing.new_item'
@@ -87,7 +83,7 @@ describe ListingsController do
     end
 
     test 'get html' do
-      get :new, format: :html
+      get new_listing_path
       assert_response :success
       assert_equal 'text/html', response.content_type
       assert_includes response.body, 'the_form'
