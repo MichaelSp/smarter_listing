@@ -12,7 +12,9 @@ Usage
 
 * Gemfile
   ```ruby
-  gem 'smarter_listing'
+  gem 'smarter_listing', '~> 0.4.0'   # rails 4
+  gem 'smarter_listing', '~> 0.5.0'   # rails 5
+  gem 'smarter_listing', '~> 0.6.0'   # rails 6
   ```
 then `bundle install`
 
